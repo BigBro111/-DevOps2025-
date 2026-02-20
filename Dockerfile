@@ -1,7 +1,13 @@
-# Берём готовый образ Nginx
-FROM nginx:stable-alpine-slim
+FROM nginx:alpine
 
-# Кладём все файлы из текущей папки (где index.html)
-# в стандартную папку, откуда Nginx отдаёт сайт
-COPY . /usr/share/nginx/html
+# Копируем index.html в папку nginx
+COPY index.html /usr/share/nginx/html/index.html
 
+# Копируем конфигурацию nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose порт 8080
+EXPOSE 8080
+
+# Стартуем nginx
+CMD ["nginx", "-g", "daemon off;"]
